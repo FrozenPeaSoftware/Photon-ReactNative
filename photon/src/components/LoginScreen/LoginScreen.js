@@ -24,9 +24,9 @@ class LoginScreen extends Component {
             <FormInput inputStyle={styles.formInput} />
             <FormLabel>Password</FormLabel>
             <FormInput inputStyle={styles.formInput} />
-            <View style={styles.buttonContainer}>
-              <Button title="Log In" buttonStyle={styles.button} />
-            </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Log In" buttonStyle={styles.button} />
           </View>
         </View>
       </View>
@@ -37,11 +37,15 @@ class LoginScreen extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
+    justifyContent: "space-evenly"
+  },
+  container: {
+    height: "60%",
     justifyContent: "space-evenly",
+    //backgroundColor: "magenta",
   },
   imageContainer: {
-    //width: "100%",
-    height: "30%",
+    height: "25%",
     //backgroundColor: "aliceblue"
   },
   logo: {
@@ -52,6 +56,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     justifyContent: "space-between",
+    paddingBottom: "7%",
     //backgroundColor: "blue"
   },
   formInput: {
