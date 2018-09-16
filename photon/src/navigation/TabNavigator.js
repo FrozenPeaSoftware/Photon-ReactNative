@@ -5,11 +5,11 @@ import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import UploadPhotoScreen from '../components/UploadPhotoScreen';
-
+import LoginScreen from '../components/LoginScreen';
 
 const TabNavigator = createBottomTabNavigator({
     UploadPhoto: {
-        screen: UploadPhotoScreen,
+        screen: LoginScreen,
         navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (
                 <Icon name='md-cloud-upload' color={tintColor} size={25}/>
