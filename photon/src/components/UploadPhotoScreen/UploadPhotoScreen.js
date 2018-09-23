@@ -12,7 +12,7 @@ class UploadPhotoScreen extends Component {
     return <View style={[styles.main]}>
       <View style={[styles.centerContainer]}>
         <Icon name='md-cloud-upload' color='#4ca7ed' size={100}/>
-        <TouchableOpacity style={[styles.button]} onPress={choosePhoto}>
+        <TouchableOpacity style={[styles.button]} onPress={()=> choosePhoto(this.props)}>
           <Text style={styles.buttonText}>Choose Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button]} onPress={takePhoto}>
@@ -23,23 +23,23 @@ class UploadPhotoScreen extends Component {
   }
 }
 
-function choosePhoto() {
-  this.props.navigation.navigate('Login');
-  /* console.log("Choosing photo...");
+function choosePhoto(props) {
+  console.log("Choosing photo...");
   ImagePicker.openPicker({
-    width: 300,
-    height: 300,
+    width: 800,
+    height: 800,
     cropping: true
   }).then(image => {
     console.log(image);
-  }); */
+    props.navigation.navigate('PhotoOptions', {image: image});
+  });
 }
 
 function takePhoto() {
   console.log("Taking photo...");
   ImagePicker.openCamera({
-    width: 300,
-    height: 300,
+    width: 800,
+    height: 800,
     cropping: true
   }).then(image => {
     console.log(image);
