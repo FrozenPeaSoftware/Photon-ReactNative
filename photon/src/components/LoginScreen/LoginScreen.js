@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
 
 import {
   FormLabel,
@@ -8,7 +8,6 @@ import {
   colors,
   Button
 } from "react-native-elements";
-
 
 class LoginScreen extends Component {
   render() {
@@ -27,9 +26,16 @@ class LoginScreen extends Component {
             <FormLabel>Password</FormLabel>
             <FormInput inputStyle={styles.formInput} />
           </View>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Register")}
+          >
+            <Text style={styles.text}>Don't have an account yet?</Text>
+          </TouchableOpacity>
           <View style={styles.buttonContainer}>
-            {/* <Button title="Log In" buttonStyle={styles.button} /> */}
-            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Tabs')}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate("Tabs")}
+            >
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
           </View>
@@ -51,7 +57,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "magenta",
   },
   imageContainer: {
-    height: "25%"
+    height: "20%"
     //backgroundColor: "aliceblue"
   },
   logo: {
@@ -61,8 +67,8 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   formContainer: {
-    justifyContent: "space-between",
-    paddingBottom: "7%"
+    justifyContent: "space-between"
+    //paddingBottom: "7%"
     //backgroundColor: "blue"
   },
   formInput: {
@@ -70,6 +76,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10
+  },
+  text: {
+    textAlign: "center"
+    //selectionColor: "blue"
   },
   buttonContainer: {
     alignItems: "center"
@@ -80,8 +90,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 55,
     borderRadius: 50,
-    alignItems: 'center',
-    padding: 17,
+    alignItems: "center",
+    padding: 17
   },
   buttonText: {
     fontWeight: "bold",
