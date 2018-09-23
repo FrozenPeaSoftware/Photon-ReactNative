@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Text,
+  KeyboardAvoidingView
+} from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -19,16 +26,21 @@ class RegisterScreen extends Component {
               source={require("../../../res/logo.png")}
             />
           </View>
+          {/* <Text style={styles.title}>Register</Text> */}
           <View style={styles.formContainer}>
             <FormLabel>Email</FormLabel>
             <FormInput inputStyle={styles.formInput} />
             <FormLabel>Password</FormLabel>
             <FormInput inputStyle={styles.formInput} />
+            <FormLabel>Confirm Password</FormLabel>
+            <FormInput inputStyle={styles.formInput} />
           </View>
           <View style={styles.buttonContainer}>
-            {/* <Button title="Log In" buttonStyle={styles.button} /> */}
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Log In</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate("Tabs")}
+            >
+              <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -40,7 +52,8 @@ class RegisterScreen extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    backgroundColor: "white"
   },
   container: {
     height: "60%",
@@ -48,8 +61,12 @@ const styles = StyleSheet.create({
     //backgroundColor: "magenta",
   },
   imageContainer: {
-    height: "25%"
+    height: "20%"
     //backgroundColor: "aliceblue"
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 40
   },
   logo: {
     flex: 1,
@@ -77,8 +94,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 55,
     borderRadius: 50,
-    alignItems: 'center',
-    padding: 17,
+    alignItems: "center",
+    padding: 17
   },
   buttonText: {
     fontWeight: "bold",
