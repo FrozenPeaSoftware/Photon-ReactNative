@@ -35,7 +35,14 @@ class ProfileScreen extends Component {
               </View>
             </View>
           </View>
+          <View style={styles.profileHeaderBot}> 
+            <Text style={{color: "black", fontWeight: "bold"}}>Sally Hansen</Text>
+            <Text>It's ya gal</Text>
+          </View>
         </View>
+
+        <View style={styles.divider}></View>
+
       </View>
     );
   }
@@ -51,18 +58,20 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     //backgroundColor: "aliceblue",
-    height: "30%"
+    height: "25%"
   },
   profileHeaderTop: {
     display: "flex",
     margin: 15,
+    marginBottom: 0,
     height: "55%",
     //backgroundColor: "pink",
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   imageContainer: {
     height: "100%",
-    width: "27%",
+    width: "25%",
     //backgroundColor: "purple"
   },
   followerContainer: {
@@ -110,10 +119,23 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center"
   },
+  profileHeaderBot: {
+    //backgroundColor: "blue",
+    height: "45%",
+    paddingTop: 10,
+    marginLeft: 15,
+    marginRight: 15,
+  },
   profilePicture: {
     flex: 1,
     width: undefined,
     height: undefined,
     borderRadius: 100
+  },
+  divider: {
+    backgroundColor: "#4ca7ed", 
+    height: 2,
+    marginLeft: 15,
+    marginRight: 15,
   }
 });
