@@ -7,6 +7,7 @@ import LoginScreen from "./src/components/LoginScreen";
 import UploadPhotoScreen from "./src/components/UploadPhotoScreen";
 import PhotoOptions from "./src/components/PhotoOptions";
 import PhotoScreen from "./src/components/PhotoScreen";
+import ProfileScreen from "./src/components/ProfileScreen";
 
 //type Props = {};
 
@@ -37,6 +38,10 @@ const AppRouter = createStackNavigator(
     Photo: {
       screen: PhotoScreen,
       header: null
+    },
+    Profile: {
+      screen: ProfileScreen,
+      header: null,
     },
   },
   {
