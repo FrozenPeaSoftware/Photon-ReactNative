@@ -6,6 +6,7 @@ import RegisterScreen from "./src/components/RegisterScreen/RegisterScreen";
 import LoginScreen from "./src/components/LoginScreen";
 import UploadPhotoScreen from "./src/components/UploadPhotoScreen";
 import PhotoOptions from "./src/components/PhotoOptions";
+import PhotoScreen from "./src/components/PhotoScreen";
 
 //type Props = {};
 
@@ -16,6 +17,7 @@ const AppRouter = createStackNavigator(
       navigationOptions: {
         header: null
       }
+
     },
     Register: {
       screen: RegisterScreen,
@@ -32,6 +34,10 @@ const AppRouter = createStackNavigator(
       screen: PhotoOptions,
       header: null
     },
+    Photo: {
+      screen: PhotoScreen,
+      header: null
+    },
   },
   {
     initialRouteName: "Login"
@@ -39,7 +45,7 @@ const AppRouter = createStackNavigator(
 );
 
 export default class App extends React.Component {
-  //static navigationOptions = { title: 'Login', header: { visible:false } };
+  // static navigationOptions = { title: 'Login', header: { visible:false } };
   render() {
     return (
       <View

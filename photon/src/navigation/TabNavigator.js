@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import { View, Text } from 'react-native';
-
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import UploadPhotoScreen from '../components/UploadPhotoScreen';

@@ -38,7 +38,7 @@ class PhotoOptions extends Component {
 function upload(props, image, location, description) {
   console.log("Uploading...");
   console.log(location + ' ' + description);
-  props.navigation.navigate('Login', {
+  props.navigation.navigate('Photo', {
     image: image,
     location: location,
     description: description
