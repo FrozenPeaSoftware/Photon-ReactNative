@@ -8,6 +8,7 @@ import UploadPhotoScreen from "./src/components/UploadPhotoScreen";
 import PhotoOptions from "./src/components/PhotoOptions";
 import PhotoScreen from "./src/components/PhotoScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
+import CustomiseProfileScreen from "./src/components/CustomiseProfileScreen/CustomiseProfileScreen";
 
 //type Props = {};
 
@@ -22,6 +23,12 @@ const AppRouter = createStackNavigator(
     },
     Register: {
       screen: RegisterScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    CustomiseProfile: {
+      screen: CustomiseProfileScreen,
       navigationOptions: {
         header: null
       }

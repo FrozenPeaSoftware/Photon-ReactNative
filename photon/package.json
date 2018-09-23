@@ -11,6 +11,7 @@
     "react-native": "0.56.0",
     "react-native-elements": "^0.19.1",
     "react-native-image-crop-picker": "^0.21.2",
+    "react-native-image-grid": "^1.0.0",
     "react-native-ionicons": "^0.2.2",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.16.0"

@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -14,7 +8,7 @@ import {
   Button
 } from "react-native-elements";
 
-class RegisterScreen extends Component {
+class CustomiseProfileScreen extends Component {
   render() {
     return (
       <View style={styles.main}>
@@ -27,19 +21,23 @@ class RegisterScreen extends Component {
           </View>
           {/* <Text style={styles.title}>Register</Text> */}
           <View style={styles.formContainer}>
-            <FormLabel>Email</FormLabel>
+            <FormLabel>Name</FormLabel>
             <FormInput inputStyle={styles.formInput} />
-            <FormLabel>Password</FormLabel>
+            <FormLabel>Username</FormLabel>
             <FormInput inputStyle={styles.formInput} />
-            <FormLabel>Confirm Password</FormLabel>
-            <FormInput inputStyle={styles.formInput} />
+            <FormLabel>Biography</FormLabel>
+            <FormInput
+              inputStyle={styles.formInput}
+              multiline={true}
+              numberOfLines={3}
+            />
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate("CustomiseProfile")}
+              onPress={() => this.props.navigation.navigate("Tabs")}
             >
-              <Text style={styles.buttonText}>Register</Text>
+              <Text style={styles.buttonText}>Save Profile</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -102,4 +100,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RegisterScreen;
+export default CustomiseProfileScreen;

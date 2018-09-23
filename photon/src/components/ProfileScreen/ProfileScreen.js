@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import PhotoGrid from "react-native-image-grid";
 
 class ProfileScreen extends Component {
   render() {
+    const image = this.props.navigation.getParam('image');
     return (
       <View style={styles.main}>
         <View style={styles.profileHeader}>
@@ -10,7 +12,7 @@ class ProfileScreen extends Component {
             <View style={styles.imageContainer}>
               <Image
                 style={styles.profilePicture}
-                source={require("../../../res/default.png")}
+                source={{uri: 'https://instagram.fakl1-2.fna.fbcdn.net/vp/f14a92850c2e674f8964fb85e151a41e/5C242956/t51.2885-19/s150x150/38096749_208075379863871_8613051600635691008_n.jpg'}}
               />
             </View>
             <View style={styles.followerContainer}>
@@ -35,14 +37,22 @@ class ProfileScreen extends Component {
               </View>
             </View>
           </View>
-          <View style={styles.profileHeaderBot}> 
-            <Text style={{color: "black", fontWeight: "bold"}}>Sally Hansen</Text>
-            <Text>It's ya gal</Text>
+          <View style={styles.profileHeaderBot}>
+            <Text style={{ color: "black", fontWeight: "bold" }}>
+              Leyton Blackler
+            </Text>
+            <Text>I love React Native!</Text>
           </View>
         </View>
 
-        <View style={styles.divider}></View>
+        <View style={styles.divider} />
 
+        <View style={styles.photoGrid}>
+          <Image
+            style={styles.gridImage}
+            source={{uri:image.path}}
+          />
+        </View>
       </View>
     );
   }
@@ -71,7 +81,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     height: "100%",
-    width: "25%",
+    width: "25%"
     //backgroundColor: "purple"
   },
   followerContainer: {
@@ -79,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     width: "73%",
-    height: "100%",
+    height: "100%"
     //backgroundColor: "violet"
   },
   followerContainerTop: {
@@ -89,7 +99,7 @@ const styles = StyleSheet.create({
     height: "50%"
   },
   countContainer: {
-    width: "30%",
+    width: "30%"
     //backgroundColor: "blue",
   },
   numText: {
@@ -106,7 +116,7 @@ const styles = StyleSheet.create({
   },
   followerContainerBot: {
     height: "35%",
-    marginLeft: 10,
+    marginLeft: 10
     //backgroundColor: "blue",
   },
   optionsButton: {
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
     height: "45%",
     paddingTop: 10,
     marginLeft: 15,
-    marginRight: 15,
+    marginRight: 15
   },
   profilePicture: {
     flex: 1,
@@ -133,9 +143,18 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   divider: {
-    backgroundColor: "#4ca7ed", 
+    backgroundColor: "#4ca7ed",
     height: 2,
     marginLeft: 15,
-    marginRight: 15,
+    marginRight: 15
+  },
+  photoGrid: {
+    margin: 15,
+    height: "75%",
+    //backgroundColor: "aliceblue"
+  },
+  gridImage: {
+    width: 180,
+    height: 180
   }
 });
