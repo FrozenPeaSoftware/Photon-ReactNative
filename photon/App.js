@@ -4,6 +4,8 @@ import { TabNavigator } from "./src/navigation/TabNavigator";
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from "./src/components/RegisterScreen/RegisterScreen";
 import LoginScreen from "./src/components/LoginScreen";
+import UploadPhotoScreen from "./src/components/UploadPhotoScreen";
+import PhotoOptions from "./src/components/PhotoOptions";
 
 //type Props = {};
 
@@ -21,7 +23,15 @@ const AppRouter = createStackNavigator(
         header: null
       }
     },
-    Tabs: TabNavigator
+    Tabs: TabNavigator,
+    UploadPhoto: {
+      screen: UploadPhotoScreen,
+      header: null
+    },
+    PhotoOptions: {
+      screen: PhotoOptions,
+      header: null
+    },
   },
   {
     initialRouteName: "Login"
