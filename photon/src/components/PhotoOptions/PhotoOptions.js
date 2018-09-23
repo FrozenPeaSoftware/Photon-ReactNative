@@ -9,33 +9,40 @@ import {
 } from "react-native-elements";
 
 class PhotoOptions extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { location: '', description: '' };
+  }
   render() {
+  const image = this.props.navigation.getParam('image');
   return <View style={[styles.main]}>
     <View style={[styles.centerContainer]}>
       <FormLabel>Location</FormLabel>
-      <FormInput inputStyle={styles.formInput} />
+      <FormInput inputStyle={styles.formInput} onChangeText={(location) => this.setState({location})} value={this.state.location}/>
       <FormLabel>Description</FormLabel>
-      <FormInput inputStyle={styles.formInput} />
-      <Image style={[styles.imagePreview]} source={{uri: this.props.navigation.getParam('image').path}}/>
+      <FormInput inputStyle={styles.formInput} onChangeText={(description) => this.setState({description})} value={this.state.description}/>
+      <Image style={[styles.imagePreview]} source={{uri: image.path}}/>
       <View style={[styles.buttonsContainer]}>
-      <TouchableOpacity style={[styles.button]} onPress={cancel}>
+      <TouchableOpacity style={[styles.button]} onPress={() => this.props.navigation.goBack()}>
           <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.button]} onPress={upload}>
+      <TouchableOpacity style={[styles.button]} onPress={() => upload(this.props, image, this.state.location, this.state.description)}>
           <Text style={styles.buttonText}>Upload</Text>
       </TouchableOpacity>
       </View>
     </View>
-  </View>;
+  </View>
   }
 }
 
-function cancel() {
-  console.log("Cancelling...");
-}
-
-function upload() {
+function upload(props, image, location, description) {
   console.log("Uploading...");
+  console.log(location + ' ' + description);
+  props.navigation.navigate('Login', {
+    image: image,
+    location: location,
+    description: description
+  });
 }
 
 const styles = StyleSheet.create({
