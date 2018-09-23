@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import UploadPhotoScreen from '../components/UploadPhotoScreen';
+import ProfileScreen from '../components/ProfileScreen';
 
 const TabNavigator = createBottomTabNavigator({
     UploadPhoto: {
@@ -24,11 +25,11 @@ const TabNavigator = createBottomTabNavigator({
         })
     },
     Profile: {
-        screen: UploadPhotoScreen,
+        screen: ProfileScreen,
         navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (
                 <Icon name='md-person' color={tintColor} size={25}/>
-            )
+            ),
         })
     },
     Options: {

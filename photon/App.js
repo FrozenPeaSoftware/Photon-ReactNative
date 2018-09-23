@@ -6,6 +6,7 @@ import RegisterScreen from "./src/components/RegisterScreen/RegisterScreen";
 import LoginScreen from "./src/components/LoginScreen";
 import UploadPhotoScreen from "./src/components/UploadPhotoScreen";
 import PhotoOptions from "./src/components/PhotoOptions";
+import ProfileScreen from "./src/components/ProfileScreen";
 
 //type Props = {};
 
@@ -31,6 +32,10 @@ const AppRouter = createStackNavigator(
     PhotoOptions: {
       screen: PhotoOptions,
       header: null
+    },
+    Profile: {
+      screen: ProfileScreen,
+      header: null,
     },
   },
   {

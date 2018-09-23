@@ -26,11 +26,6 @@ class LoginScreen extends Component {
             <FormLabel>Password</FormLabel>
             <FormInput inputStyle={styles.formInput} />
           </View>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Register")}
-          >
-            <Text style={styles.text}>Don't have an account yet?</Text>
-          </TouchableOpacity>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
@@ -39,6 +34,11 @@ class LoginScreen extends Component {
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Register")}
+          >
+            <Text style={styles.text}>Don't have an account yet?</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: "60%",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
     //backgroundColor: "magenta",
   },
   imageContainer: {
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   formContainer: {
-    justifyContent: "space-between"
-    //paddingBottom: "7%"
+    justifyContent: "space-between",
+    paddingBottom: "7%"
     //backgroundColor: "blue"
   },
   formInput: {
@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     //selectionColor: "blue"
   },
   buttonContainer: {
-    alignItems: "center"
+    alignItems: "center",
+    //paddingBottom: "5%"
     //backgroundColor: "pink"
   },
   button: {
