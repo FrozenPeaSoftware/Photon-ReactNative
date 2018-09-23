@@ -17,10 +17,10 @@ class PhotoOptions extends Component {
   const image = this.props.navigation.getParam('image');
   return <View style={[styles.main]}>
     <View style={[styles.centerContainer]}>
-      <FormLabel>Location</FormLabel>
-      <FormInput inputStyle={styles.formInput} onChangeText={(location) => this.setState({location})} value={this.state.location}/>
-      <FormLabel>Description</FormLabel>
-      <FormInput inputStyle={styles.formInput} onChangeText={(description) => this.setState({description})} value={this.state.description}/>
+      <FormLabel style={[styles.label]}>Location</FormLabel>
+      <FormInput inputStyle={[styles.formInput]} onChangeText={(location) => this.setState({location})} value={this.state.location}/>
+      <FormLabel style={[styles.label]}>Description</FormLabel>
+      <FormInput inputStyle={[styles.formInput]} onChangeText={(description) => this.setState({description})} value={this.state.description}/>
       <Image style={[styles.imagePreview]} source={{uri: image.path}}/>
       <View style={[styles.buttonsContainer]}>
       <TouchableOpacity style={[styles.button]} onPress={() => this.props.navigation.goBack()}>
@@ -90,6 +90,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     width: 375,
+  },
+  label: {
+    color: "#4ca7ed"
   }
 });
 

@@ -15,7 +15,7 @@ class UploadPhotoScreen extends Component {
         <TouchableOpacity style={[styles.button]} onPress={()=> choosePhoto(this.props)}>
           <Text style={styles.buttonText}>Choose Photo</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button]} onPress={takePhoto}>
+        <TouchableOpacity style={[styles.button]} onPress={()=> takePhoto(this.props)}>
           <Text style={styles.buttonText}>Take Photo</Text>
         </TouchableOpacity>
       </View>
@@ -35,7 +35,7 @@ function choosePhoto(props) {
   });
 }
 
-function takePhoto() {
+function takePhoto(props) {
   console.log("Taking photo...");
   ImagePicker.openCamera({
     width: 800,
@@ -43,6 +43,7 @@ function takePhoto() {
     cropping: true
   }).then(image => {
     console.log(image);
+    props.navigation.navigate('PhotoOptions', {image: image});
   });
 }
 
