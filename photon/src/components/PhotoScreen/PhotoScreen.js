@@ -38,7 +38,7 @@ class PhotoScreen extends Component {
 }
 
 function showProfile(props, image) {
-  props.navigation.navigate('Login', {
+  props.navigation.navigate('Profile', {
     image: image
   });
 }
