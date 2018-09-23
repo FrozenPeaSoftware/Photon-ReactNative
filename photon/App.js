@@ -9,8 +9,18 @@ import LoginScreen from "./src/components/LoginScreen";
 
 const AppRouter = createStackNavigator(
   {
-    Login: LoginScreen,
-    Register: RegisterScreen,
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Register: {
+      screen: RegisterScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
     Tabs: TabNavigator
   },
   {
@@ -19,11 +29,12 @@ const AppRouter = createStackNavigator(
 );
 
 export default class App extends React.Component {
+  //static navigationOptions = { title: 'Login', header: { visible:false } };
   render() {
     return (
       <View
         style={{
-          flex: 1,
+          flex: 1
           //backgroundColor: "#FFFFFF"
         }}
       >
