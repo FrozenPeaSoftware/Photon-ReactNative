@@ -1,20 +1,26 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Button } from 'react-native-elements';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import ImagePicker from 'react-native-image-crop-picker';
 
 class UploadPhotoScreen extends Component {
   render() {
     return <View style={[styles.main]}>
       <View style={[styles.centerContainer]}>
         <Icon name='md-cloud-upload' color='#4ca7ed' size={100}/>
-        <Button title="CHOOSE PHOTO" textStyle={[styles.buttonText]} buttonStyle={[styles.button]}/>
-        <Button title="TAKE PHOTO" textStyle={[styles.buttonText]} buttonStyle={[styles.button]}/>
+        <TouchableOpacity title="CHOOSE PHOTO" textStyle={[styles.buttonText]} buttonStyle={[styles.button]} onPress={this.choosePhoto}/>
+        <TouchableOpacity title="TAKE PHOTO" textStyle={[styles.buttonText]} buttonStyle={[styles.button]}/>
       </View>
     </View>;
   }
+}
+
+function choosePhoto() {
+  console.log("choosing photo");
 }
 
 const styles = StyleSheet.create({
