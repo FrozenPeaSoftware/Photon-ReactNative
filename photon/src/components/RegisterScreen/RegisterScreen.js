@@ -8,7 +8,7 @@ import {
   Button
 } from "react-native-elements";
 
-class LoginScreen extends Component {
+class RegisterScreen extends Component {
   render() {
     return (
       <View style={styles.main}>
@@ -27,7 +27,7 @@ class LoginScreen extends Component {
           </View>
           <View style={styles.buttonContainer}>
             {/* <Button title="Log In" buttonStyle={styles.button} /> */}
-            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Tabs')}>
+            <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
           </View>
@@ -40,8 +40,7 @@ class LoginScreen extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: "space-evenly",
-    backgroundColor: "white"
+    justifyContent: "space-evenly"
   },
   container: {
     height: "60%",
@@ -87,4 +86,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default RegisterScreen;
