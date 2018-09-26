@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, TouchableHighlight, Text, KeyboardAvoidingView, FlatList } from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -8,17 +8,58 @@ import {
   Button
 } from "react-native-elements";
 
-class PhotoOptions extends Component {
+import RNGooglePlaces from 'react-native-google-places';
+
+type Props = {};
+class PhotoOptions extends Component<Props> {
   constructor(props) {
     super(props);
-    this.state = { location: '', description: '' };
+    this.state = {
+      locationQuery: '',
+      predictions: [],
+
+      location: '',
+      description: ''
+    };
   }
+
+  locationQueryChanged = (locationQuery) => {
+    this.setState({
+      locationQuery: locationQuery,
+      location: locationQuery
+    });
+    console.log("changed");
+      RNGooglePlaces.getAutocompletePredictions(this.state.locationQuery)
+      .then((places) => {
+        // console.log(places);
+        this.setState({predictions: places});
+      })
+      .catch(error => console.log(error.message));
+  }
+
+  renderSearchResults = () => {
+    if (this.state.locationQuery.length <= 3) {
+      return;
+    }
+    return <View style={styles.locationList}>
+    {
+      this.state.predictions.map(prediction => <TouchableOpacity onPress={() => locationItemPressed(prediction)} key={prediction.placeID} style={styles.locationListItem}><View><Text style={styles.locationListItemText}>{prediction.primaryText + ', ' + prediction.secondaryText}</Text></View></TouchableOpacity>)
+    }
+    </View>
+  }
+
   render() {
-  const image = this.props.navigation.getParam('image');
+  let image = this.props.navigation.getParam('image');
+  if (image == undefined) {
+    image = {
+      path: "https://img2.cgtrader.com/items/273636/0cd44de4fd/large/winnie-the-pooh-rigged-t-pose-3d-model-low-poly-rigged-max.jpg"
+    }
+  }
   return <View style={[styles.main]}>
     <View style={[styles.centerContainer]}>
       <FormLabel style={[styles.label]}>Location</FormLabel>
-      <FormInput inputStyle={[styles.formInput]} onChangeText={(location) => this.setState({location})} value={this.state.location}/>
+      <FormInput inputStyle={[styles.formInput]} value={this.props.locationQuery} onChangeText={this.locationQueryChanged}/>
+      {this.renderSearchResults()}
       <FormLabel style={[styles.label]}>Description</FormLabel>
       <FormInput inputStyle={[styles.formInput]} onChangeText={(description) => this.setState({description})} value={this.state.description}/>
       <Image style={[styles.imagePreview]} source={{uri: image.path}}/>
@@ -33,6 +74,10 @@ class PhotoOptions extends Component {
     </View>
   </View>
   }
+}
+
+function locationItemPressed(location) {
+  console.log(location);
 }
 
 function upload(props, image, location, description) {
@@ -93,6 +138,33 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#4ca7ed"
+  },
+  locationList: {
+    zIndex: 1000,
+    position: 'absolute',
+    backgroundColor: "#ececec",
+    marginTop: 90,
+    borderRadius: 10,
+    width: 375,
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+    elevation: 9,
+  },
+  locationListItem: {
+    padding: 20,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: 375,
+    height: 60
+  },
+  locationListItemText: {
+    fontSize: 16
   }
 });
 

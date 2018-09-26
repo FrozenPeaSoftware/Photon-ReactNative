@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import UploadPhotoScreen from '../components/UploadPhotoScreen';
 import ProfileScreen from '../components/ProfileScreen';
+import PhotoOptions from '../components/PhotoOptions/PhotoOptions';
 
 const TabNavigator = createBottomTabNavigator({
     UploadPhoto: {
@@ -16,7 +17,7 @@ const TabNavigator = createBottomTabNavigator({
         })
     },
     Search: {
-        screen: UploadPhotoScreen,
+        screen: PhotoOptions,
         navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (
                 <Icon name='md-search' color={tintColor} size={25}/>
