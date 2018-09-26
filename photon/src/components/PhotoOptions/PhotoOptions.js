@@ -170,8 +170,8 @@ const styles = StyleSheet.create({
     color: "white"
   },
   imagePreview: {
-    marginTop: 40,
-    marginBottom: 40,
+    marginTop: 30,
+    marginBottom: 20,
     borderRadius: 15,
     width: 375,
     height: 375
