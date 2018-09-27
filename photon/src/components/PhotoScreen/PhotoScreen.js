@@ -37,7 +37,7 @@ class PhotoScreen extends Component {
     return <View style={[styles.main]}>
       <View style={[styles.headerContainer]}>
         <TouchableOpacity onPress={() => showProfile(this.props, image)}>
-        <Image style={[styles.profilePhoto]} source={{uri: 'https://instagram.fakl1-2.fna.fbcdn.net/vp/f14a92850c2e674f8964fb85e151a41e/5C242956/t51.2885-19/s150x150/38096749_208075379863871_8613051600635691008_n.jpg'}}/>
+          <Image style={[styles.profilePhoto]} source={{uri: 'https://instagram.fakl1-2.fna.fbcdn.net/vp/f14a92850c2e674f8964fb85e151a41e/5C242956/t51.2885-19/s150x150/38096749_208075379863871_8613051600635691008_n.jpg'}}/>
         </TouchableOpacity>
         <View style={[styles.nameAndLocationContainer]}>
           <Text style={[styles.headerName]}>Leyton Blackler</Text>
@@ -49,7 +49,9 @@ class PhotoScreen extends Component {
       </DoubleClick>
       <View style={[styles.photoFooterContainer]}>
         <View style={[styles.likeAndCommentIconsContainer]}>
-          <Icon style={this.state.liked ? styles.likeIconActive : styles.likeIconInactive} name='md-heart' size={40}/>
+          <TouchableOpacity onPress={this.toggleLikedStatus}>
+            <Icon style={this.state.liked ? styles.likeIconActive : styles.likeIconInactive} name='md-heart' size={40}/>
+          </TouchableOpacity>
           <Text style={[styles.likesAndCommentsCount]}>0</Text>
           <Icon name='ios-chatbubbles' color='#4ca7ed' size={40}/>
           <Text style={[styles.likesAndCommentsCount]}>0</Text>
