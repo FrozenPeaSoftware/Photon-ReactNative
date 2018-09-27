@@ -14,7 +14,10 @@ class PhotoScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { location: props.navigation.getParam('location'), description: '' };
+    this.state = {
+      location: props.navigation.getParam('location'),
+      description: '',
+      liked: false };
   }
   render() {
     const image = this.props.navigation.getParam('image');
@@ -35,9 +38,9 @@ class PhotoScreen extends Component {
       <Image style={[styles.photo]} source={{uri: image.path}}/>
       <View style={[styles.photoFooterContainer]}>
         <View style={[styles.likeAndCommentIconsContainer]}>
-          <Icon name='md-heart' color='#4ca7ed' size={35}/>
+          <Icon style={this.state.liked ? styles.likeIconActive : styles.likeIconInactive} name='md-heart' size={40}/>
           <Text style={[styles.likesAndCommentsCount]}>0</Text>
-          <Icon name='ios-chatbubbles' color='#4ca7ed' size={35}/>
+          <Icon name='ios-chatbubbles' color='#4ca7ed' size={40}/>
           <Text style={[styles.likesAndCommentsCount]}>0</Text>
         </View>
         <Text style={[styles.description]}>{description}</Text>
@@ -103,21 +106,20 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: '#000000',
-    marginLeft: 10
+    color: '#000000'
   },
   photoFooterContainer: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'flex-start',
-    height: 90
+    height: 90,
+    marginLeft: 20
   },
   likeAndCommentIconsContainer: {
     flexDirection: 'row',
     justifyContent: "flex-start",
     alignItems: 'center',
-    width: 120,
-    marginLeft: 10
+    width: 120
   },
   likesAndCommentsCount: {
     fontSize: 12,
@@ -125,11 +127,15 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 10
   },
+  likeIconActive: {
+    color: '#F44336'
+  },
+  likeIconInactive: {
+    color: '#4ca7ed'
+  },
   divider: {
     backgroundColor: "#4ca7ed", 
-    height: 2,
-    marginLeft: 10,
-    marginRight: 10,
+    height: 2
   },
   formInput: {
     backgroundColor: "#ececec",
