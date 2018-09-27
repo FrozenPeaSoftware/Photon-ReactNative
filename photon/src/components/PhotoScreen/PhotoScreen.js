@@ -10,6 +10,8 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import DoubleClick from 'react-native-double-click';
+
 class PhotoScreen extends Component {
 
   constructor(props) {
@@ -19,6 +21,13 @@ class PhotoScreen extends Component {
       description: '',
       liked: false };
   }
+
+  toggleLikedStatus = () => {
+    this.setState({
+      liked: !this.state.liked
+    });
+  }
+
   render() {
     const image = this.props.navigation.getParam('image');
     console.log(image.path);
@@ -35,7 +44,9 @@ class PhotoScreen extends Component {
           <Text style={[styles.headerLocation]}>{locationName}</Text>
         </View>
       </View>
-      <Image style={[styles.photo]} source={{uri: image.path}}/>
+      <DoubleClick onClick={this.toggleLikedStatus}>
+        <Image style={[styles.photo]} source={{uri: image.path}}/>
+      </DoubleClick>
       <View style={[styles.photoFooterContainer]}>
         <View style={[styles.likeAndCommentIconsContainer]}>
           <Icon style={this.state.liked ? styles.likeIconActive : styles.likeIconInactive} name='md-heart' size={40}/>

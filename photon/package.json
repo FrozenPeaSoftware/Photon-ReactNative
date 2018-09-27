@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-double-click": "^1.0.5",
     "react-native-elements": "^0.19.1",
     "react-native-google-places": "^2.5.2",
     "react-native-image-crop-picker": "^0.21.2",
