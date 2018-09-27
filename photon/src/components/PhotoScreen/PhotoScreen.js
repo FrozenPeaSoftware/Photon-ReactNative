@@ -14,12 +14,13 @@ class PhotoScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { location: props.get, description: '' };
+    this.state = { location: props.navigation.getParam('location'), description: '' };
   }
   render() {
     const image = this.props.navigation.getParam('image');
     console.log(image.path);
     const location = this.props.navigation.getParam('location');
+    const locationName = location.primaryText + ", " + location.secondaryText;
     const description = this.props.navigation.getParam('description');
     return <View style={[styles.main]}>
       <View style={[styles.headerContainer]}>
@@ -28,7 +29,7 @@ class PhotoScreen extends Component {
         </TouchableOpacity>
         <View style={[styles.nameAndLocationContainer]}>
           <Text style={[styles.headerName]}>Leyton Blackler</Text>
-          <Text style={[styles.headerLocation]}>{location}</Text>
+          <Text style={[styles.headerLocation]}>{locationName}</Text>
         </View>
       </View>
       <Image style={[styles.photo]} source={{uri: image.path}}/>

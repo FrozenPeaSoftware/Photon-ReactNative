@@ -21,9 +21,11 @@ import RNGooglePlaces from "react-native-google-places";
 
 type Props = {};
 class PhotoOptions extends Component<Props> {
+
   constructor(props) {
     super(props);
     this.state = {
+      locationItemSelected: false,
       locationQuery: "",
       predictions: [],
 
@@ -34,27 +36,38 @@ class PhotoOptions extends Component<Props> {
 
   locationQueryChanged = locationQuery => {
     this.setState({
+      locationItemSelected: false,
       locationQuery: locationQuery,
       location: locationQuery
     });
     console.log("changed");
     RNGooglePlaces.getAutocompletePredictions(this.state.locationQuery)
       .then(places => {
-        // console.log(places);
-        this.setState({ predictions: places });
+        this.setState({
+          predictions: places
+        });
       })
       .catch(error => console.log(error.message));
   };
 
+  locationItemPressed = (location) => {
+    this.setState({
+      locationItemSelected: true,
+      locationQuery: location.primaryText + ", " + location.secondaryText,
+      location: location
+    });
+    console.log(location);
+  }
+
   renderSearchResults = () => {
-    if (this.state.locationQuery.length <= 3) {
+    if (this.state.locationQuery.length <= 3 || this.state.locationItemSelected) {
       return;
     }
     return (
       <View style={styles.locationList}>
         {this.state.predictions.map(prediction => (
           <TouchableOpacity
-            onPress={() => locationItemPressed(prediction)}
+            onPress={() => this.locationItemPressed(prediction)}
             key={prediction.placeID}
             style={styles.locationListItem}
           >
@@ -84,7 +97,7 @@ class PhotoOptions extends Component<Props> {
           <View style={styles.locationSearchView}>
             <FormInput
               inputStyle={[styles.formInput]}
-              value={this.props.locationQuery}
+              value={this.state.locationQuery}
               onChangeText={this.locationQueryChanged}
             />
             {this.renderSearchResults()}
@@ -121,10 +134,6 @@ class PhotoOptions extends Component<Props> {
       </View>
     );
   }
-}
-
-function locationItemPressed(location) {
-  console.log(location);
 }
 
 function upload(props, image, location, description) {
