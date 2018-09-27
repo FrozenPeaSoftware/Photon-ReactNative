@@ -50,13 +50,21 @@ class PhotoOptions extends Component<Props> {
       .catch(error => console.log(error.message));
   };
 
+  lookupLocationByID = (id) => {
+    RNGooglePlaces.lookUpPlaceByID(id)
+    .then((location) => {
+      this.setState({
+        locationItemSelected: true,
+        locationQuery: location.name,
+        location: location
+      });
+      console.log(location);
+    })
+    .catch((error) => console.log(error.message));
+  }
+
   locationItemPressed = (location) => {
-    this.setState({
-      locationItemSelected: true,
-      locationQuery: location.primaryText + ", " + location.secondaryText,
-      location: location
-    });
-    console.log(location);
+    this.lookupLocationByID(location.placeID);
   }
 
   renderSearchResults = () => {
@@ -73,7 +81,7 @@ class PhotoOptions extends Component<Props> {
           >
             <View>
               <Text style={styles.locationListItemText}>
-                {prediction.primaryText + ", " + prediction.secondaryText}
+                {prediction.fullText}
               </Text>
             </View>
           </TouchableOpacity>

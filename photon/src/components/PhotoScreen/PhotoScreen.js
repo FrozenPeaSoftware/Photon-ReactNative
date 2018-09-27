@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Dimensions, TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet, Image, Dimensions, TouchableOpacity, Text, KeyboardAvoidingView, Modal } from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -13,6 +13,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DoubleClick from 'react-native-double-click';
 
 class PhotoScreen extends Component {
+
+  static navigationOptions = {
+    headerRight: (
+      <TouchableOpacity style={{marginRight: 20}}onPress={this.toggleLikedStatus}>
+        <Icon name='md-pin' color='#4ca7ed' size={30}/>
+      </TouchableOpacity>
+    ),
+  };
 
   constructor(props) {
     super(props);
@@ -32,7 +40,6 @@ class PhotoScreen extends Component {
     const image = this.props.navigation.getParam('image');
     console.log(image.path);
     const location = this.props.navigation.getParam('location');
-    const locationName = location.primaryText + ", " + location.secondaryText;
     const description = this.props.navigation.getParam('description');
     return <View style={[styles.main]}>
       <View style={[styles.headerContainer]}>
@@ -41,7 +48,7 @@ class PhotoScreen extends Component {
         </TouchableOpacity>
         <View style={[styles.nameAndLocationContainer]}>
           <Text style={[styles.headerName]}>Leyton Blackler</Text>
-          <Text style={[styles.headerLocation]}>{locationName}</Text>
+          <Text style={[styles.headerLocation]}>{location.name}</Text>
         </View>
       </View>
       <DoubleClick onClick={this.toggleLikedStatus}>
@@ -58,7 +65,7 @@ class PhotoScreen extends Component {
         </View>
         <Text style={[styles.description]}>{description}</Text>
       </View>
-      <View style={[styles.divider]}></View>
+      <View style={[styles.divider]}/>
       <View style={[styles.commentBoxContainer]}>
         <View>
           <FormLabel style={[styles.label]}>Comment</FormLabel>
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: 70
+    height: 60
   },
   photo: {
     width: Dimensions.get('window').width,
@@ -118,14 +125,14 @@ const styles = StyleSheet.create({
     color: '#000000'
   },
   description: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#000000'
   },
   photoFooterContainer: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'flex-start',
-    height: 90,
+    height: 80,
     marginLeft: 20
   },
   likeAndCommentIconsContainer: {
@@ -135,10 +142,12 @@ const styles = StyleSheet.create({
     width: 120
   },
   likesAndCommentsCount: {
-    fontSize: 12,
+    fontSize: 16,
+    fontWeight: 'bold',
     color: '#000000',
     marginRight: 'auto',
-    marginLeft: 10
+    marginLeft: 10,
+    marginRight: 20
   },
   likeIconActive: {
     color: '#F44336'
