@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import UploadPhotoScreen from '../components/UploadPhotoScreen';
 import ProfileScreen from '../components/ProfileScreen';
 import PhotoOptions from '../components/PhotoOptions/PhotoOptions';
+import Map from "../components/Map/Map"
 
 const TabNavigator = createBottomTabNavigator({
     UploadPhoto: {
@@ -33,7 +34,7 @@ const TabNavigator = createBottomTabNavigator({
         })
     },
     Options: {
-        screen: UploadPhotoScreen,
+        screen: Map,
         navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (
                 <Icon name='md-settings' color={tintColor} size={25}/>
