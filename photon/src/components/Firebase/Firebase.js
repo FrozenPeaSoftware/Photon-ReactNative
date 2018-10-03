@@ -21,5 +21,9 @@ export async function registerWithEmail(email, password) {
   return firebase.auth().createUserWithEmailAndPassword(email, password);
 };
 
+export async function getUserID() {
+  return firebase.auth().currentUser.uid;
+}
+
 
  

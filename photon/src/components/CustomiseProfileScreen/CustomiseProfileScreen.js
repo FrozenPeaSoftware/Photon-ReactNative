@@ -7,8 +7,11 @@ import {
   colors,
   Button
 } from "react-native-elements";
+import { getUserID } from "../Firebase";
 
 class CustomiseProfileScreen extends Component {
+  userID = getUserID();
+
   render() {
     return (
       <View style={styles.main}>

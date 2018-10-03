@@ -19,7 +19,7 @@ class LoginScreen extends Component {
     const { email, password } = this.state;
 
     loginWithEmail(email, password).then(() => {
-        this.setState({ error: "", loading: false });
+        this.setState({ email: "", password: "", error: "", loading: false });
         this.props.navigation.navigate("Tabs");
       })
       .catch(() => {

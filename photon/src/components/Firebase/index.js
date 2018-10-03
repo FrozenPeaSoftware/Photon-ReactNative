@@ -1,1 +1,1 @@
-export { default } from "./Firebase";
+export { default, loginWithEmail, registerWithEmail, getUserID } from "./Firebase";
