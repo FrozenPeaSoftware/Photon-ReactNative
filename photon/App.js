@@ -11,6 +11,8 @@ import ProfileScreen from "./src/components/ProfileScreen";
 import CustomiseProfileScreen from "./src/components/CustomiseProfileScreen/CustomiseProfileScreen";
 import Firebase from "./src/components/Firebase";
 
+//console.disableYellowBox = true;
+
 const AppRouter = createStackNavigator(
   {
     Login: {

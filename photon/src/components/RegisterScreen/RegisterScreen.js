@@ -56,6 +56,7 @@ class RegisterScreen extends Component {
             <FormInput
               inputStyle={styles.formInput}
               autoCorrect={false}
+              value={this.state.confirmPassword}
               secureTextEntry
             />
             <Text style={styles.errorMessage}>{this.state.error}</Text>

@@ -7,10 +7,47 @@ import {
   colors,
   Button
 } from "react-native-elements";
-import { getUserID } from "../Firebase";
+import { updateProfile, getUserID } from "../Firebase";
 
 class CustomiseProfileScreen extends Component {
+  state = { name: "", username: "", biography: "", loading: false };
+  imageSource = "";
   userID = getUserID();
+  unsubscribe = null;
+
+  componentDidMount() {
+    //this.unsubscribe = firebase.firestore().collection("users").onSnapshot(this.onCollectionUpdate);
+  }
+
+  componentWillUnmount() {
+    //this.unsubscribe();
+  }
+
+  onCollectionUpdate = (querySnapshot) => {
+    /* querySnapshot.forEach((doc) => {
+      const { title, complete } = doc.data();
+      todos.push({
+        key: doc.id,
+        doc, // DocumentSnapshot
+        title,
+        complete,
+      });
+    });
+    this.setState({ 
+      todos,
+      loading: false,
+   }); */
+  }
+
+  saveProfile() {
+    updateProfile(
+      this.userID,
+      this.state.name,
+      this.state.username,
+      this.state.biography
+    );
+    //this.props.navigation.navigate("Tabs");
+  }
 
   render() {
     return (
@@ -25,20 +62,30 @@ class CustomiseProfileScreen extends Component {
           {/* <Text style={styles.title}>Register</Text> */}
           <View style={styles.formContainer}>
             <FormLabel>Name</FormLabel>
-            <FormInput inputStyle={styles.formInput} />
+            <FormInput
+              inputStyle={styles.formInput}
+              value={this.state.name}
+              onChangeText={name => this.setState({ name })}
+            />
             <FormLabel>Username</FormLabel>
-            <FormInput inputStyle={styles.formInput} />
+            <FormInput
+              inputStyle={styles.formInput}
+              value={this.state.username}
+              onChangeText={username => this.setState({ username })}
+            />
             <FormLabel>Biography</FormLabel>
             <FormInput
               inputStyle={styles.formInput}
+              value={this.state.biography}
               multiline={true}
               numberOfLines={3}
+              onChangeText={biography => this.setState({ biography })}
             />
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate("Tabs")}
+              onPress={() => this.saveProfile()}
             >
               <Text style={styles.buttonText}>Save Profile</Text>
             </TouchableOpacity>
