@@ -7,9 +7,19 @@ const config = {
   projectId: 'photon-1532314056313',
   storageBucket: 'photon-1532314056313.appspot.com',
   messagingSenderId: '181426765723'
-};
+}; 
 
 firebase.initializeApp(config);
 
 export default firebase;
+
+export async function loginWithEmail(email, password) {
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+};
+
+export async function registerWithEmail(email, password) {
+  return firebase.auth().createUserWithEmailAndPassword(email, password);
+};
+
+
  

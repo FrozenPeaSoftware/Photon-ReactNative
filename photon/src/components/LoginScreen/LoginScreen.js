@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
-//import firebase from 'firebase';
+import { loginWithEmail } from "../Firebase";
 
 import {
   FormLabel,
@@ -13,29 +13,19 @@ import {
 class LoginScreen extends Component {
   state = { email: "", password: "", error: "", loading: false };
 
-/*   onLoginPress() {
+  onPressLogin() {
     this.setState({ error: "", loading: true });
 
     const { email, password } = this.state;
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
+
+    loginWithEmail(email, password).then(() => {
         this.setState({ error: "", loading: false });
+        this.props.navigation.navigate("Tabs");
       })
       .catch(() => {
-        //Login was not successful, let's create a new account
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            this.setState({ error: "", loading: false });
-          })
-          .catch(() => {
-            this.setState({ error: "Authentication failed.", loading: false });
-          });
+        this.setState({ error: "Incorrect email or password", loading: false });
       });
-  } */
+  }
 
   render() {
     return (
@@ -63,11 +53,12 @@ class LoginScreen extends Component {
               value={this.state.password}
               onChangeText={password => this.setState({ password })}
             />
+            <Text style={styles.errorMessage}>{this.state.error}</Text>
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate("Tabs")}
+              onPress={() => this.onPressLogin()}
             >
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
@@ -75,7 +66,12 @@ class LoginScreen extends Component {
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate("Register")}
           >
-            <Text style={styles.text}>Don't have an account yet?</Text>
+            <Text style={styles.registerText}>Don't have an account yet?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("Tabs")}
+          >
+            <Text style={styles.registerText}>Test button for you, Leyton</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -115,7 +111,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   },
-  text: {
+  errorMessage: {
+    textAlign: "center",
+    color: "red"
+  },
+  registerText: {
     textAlign: "center"
     //selectionColor: "blue"
   },
