@@ -8,8 +8,8 @@ import UploadPhotoScreen from "./src/components/UploadPhotoScreen";
 import PhotoOptions from "./src/components/PhotoOptions";
 import PhotoScreen from "./src/components/PhotoScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
-import Map from "./src/components/Map/Map"
 import CustomiseProfileScreen from "./src/components/CustomiseProfileScreen/CustomiseProfileScreen";
+import Firebase from "./src/components/Firebase";
 
 const AppRouter = createStackNavigator(
   {
@@ -18,7 +18,6 @@ const AppRouter = createStackNavigator(
       navigationOptions: {
         header: null
       }
-
     },
     Register: {
       screen: RegisterScreen,
@@ -47,12 +46,8 @@ const AppRouter = createStackNavigator(
     },
     Profile: {
       screen: ProfileScreen,
-      header: null,
-    },
-    Map: {
-      screen: Map,
-      header: null,
-    },
+      header: null
+    }
   },
   {
     initialRouteName: "Login"
@@ -61,6 +56,10 @@ const AppRouter = createStackNavigator(
 
 export default class App extends React.Component {
   // static navigationOptions = { title: 'Login', header: { visible:false } };
+  componentWillMount() {
+    //Firebase.init();
+  } 
+
   render() {
     return (
       <View

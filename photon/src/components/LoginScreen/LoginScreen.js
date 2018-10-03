@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
+//import firebase from 'firebase';
 
 import {
   FormLabel,
@@ -10,6 +11,32 @@ import {
 } from "react-native-elements";
 
 class LoginScreen extends Component {
+  state = { email: "", password: "", error: "", loading: false };
+
+/*   onLoginPress() {
+    this.setState({ error: "", loading: true });
+
+    const { email, password } = this.state;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ error: "", loading: false });
+      })
+      .catch(() => {
+        //Login was not successful, let's create a new account
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            this.setState({ error: "", loading: false });
+          })
+          .catch(() => {
+            this.setState({ error: "Authentication failed.", loading: false });
+          });
+      });
+  } */
+
   render() {
     return (
       <View style={styles.main}>
@@ -22,9 +49,20 @@ class LoginScreen extends Component {
           </View>
           <View style={styles.formContainer}>
             <FormLabel>Email</FormLabel>
-            <FormInput inputStyle={styles.formInput} />
+            <FormInput
+              inputStyle={styles.formInput}
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
+            />
+
             <FormLabel>Password</FormLabel>
-            <FormInput inputStyle={styles.formInput} />
+            <FormInput
+              inputStyle={styles.formInput}
+              autoCorrect={false}
+              secureTextEntry
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })}
+            />
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
@@ -53,7 +91,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: "60%",
-    justifyContent: "space-evenly",
+    justifyContent: "space-evenly"
     //backgroundColor: "magenta",
   },
   imageContainer: {
@@ -82,7 +120,7 @@ const styles = StyleSheet.create({
     //selectionColor: "blue"
   },
   buttonContainer: {
-    alignItems: "center",
+    alignItems: "center"
     //paddingBottom: "5%"
     //backgroundColor: "pink"
   },
