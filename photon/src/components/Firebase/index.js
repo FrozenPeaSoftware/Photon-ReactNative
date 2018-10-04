@@ -4,5 +4,6 @@ export {
   registerWithEmail,
   getUserID,
   updateProfile,
+  getUserInfo,
   uploadPhoto
 } from "./Firebase";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -7,36 +7,30 @@ import {
   colors,
   Button
 } from "react-native-elements";
-import { updateProfile, getUserID } from "../Firebase";
+import { updateProfile, getUserID, getUserInfo } from "../Firebase";
 
 class CustomiseProfileScreen extends Component {
-  state = { name: "", username: "", biography: "", loading: false };
+  state = { name: "", username: "", biography: "", loading: true };
   imageSource = "";
   userID = getUserID();
   unsubscribe = null;
 
-  componentDidMount() {
-    //this.unsubscribe = firebase.firestore().collection("users").onSnapshot(this.onCollectionUpdate);
-  }
-
-  componentWillUnmount() {
-    //this.unsubscribe();
-  }
-
-  onCollectionUpdate = (querySnapshot) => {
-    /* querySnapshot.forEach((doc) => {
-      const { title, complete } = doc.data();
-      todos.push({
-        key: doc.id,
-        doc, // DocumentSnapshot
-        title,
-        complete,
-      });
+  constructor() {
+    super();
+    let userInfo = getUserInfo(this.userID);
+    userInfo.then(result => {
+      if (result != null) {
+        this.updateState(result.name, result.username, result.biography, false);
+      } else {
+        this.updateState("", "", "", false);
+      }
     });
+  }
+
+  updateState(name, username, biography, loading) {
     this.setState({ 
-      todos,
-      loading: false,
-   }); */
+      name, username, biography, loading
+    }); 
   }
 
   saveProfile() {
@@ -50,6 +44,14 @@ class CustomiseProfileScreen extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{flex: 1, justifyContent: "space-evenly", backgroundColor: "white"}}>
+          <ActivityIndicator size="large"></ActivityIndicator>
+        </View>
+      )
+    } else {
+
     return (
       <View style={styles.main}>
         <View style={styles.container}>
@@ -94,6 +96,7 @@ class CustomiseProfileScreen extends Component {
       </View>
     );
   }
+}
 }
 
 const styles = StyleSheet.create({

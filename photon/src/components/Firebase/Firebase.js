@@ -2,9 +2,9 @@ import firebase from "firebase";
 
 require("firebase/firestore");
 
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from "react-native-fetch-blob";
 
 const config = {
   apiKey: "AIzaSyAPCjIBhQz9Z71MefUIauXb92YtMQuxPIU",
@@ -33,58 +33,82 @@ export async function registerWithEmail(email, password) {
 }
 
 export function getUserID() {
-  //return firebase.auth().currentUser.uid.toString();
-  return "2kccav5F5bgBCWpCMDpR1cWFRry2";
+  return firebase.auth().currentUser.uid.toString();
+  //return "2kccav5F5bgBCWpCMDpR1cWFRry2";
 }
 
 export async function updateProfile(userID, name, username, biography) {
-  //console.log(firebase.firestore().collection("users").doc(userID).onSnapshot());
   const docRef = firebase.firestore().doc("users/" + userID);
   return docRef
     .set({
       name: name,
       username: username,
-      biography: biography,
+      biography: biography
     })
-    .then(function () {
+    .then(function() {
       console.log("Success");
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log("Error: " + error);
     });
+}
+
+export async function getUserInfo(userID) {
+  var docRef = firebase
+    .firestore()
+    .collection("users")
+    .doc(userID);
+  return Promise.resolve(
+    docRef
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          return doc.data();
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch(function(error) {
+        console.log("Error getting document:", error);
+      })
+  );
 }
 
 export function uploadPhoto(photoData, image) {
   const userID = getUserID();
   const photoID = uuid.v4();
 
-  const Blob = RNFetchBlob.polyfill.Blob
-  const fs = RNFetchBlob.fs
-  window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-  window.Blob = Blob
-  let uploadBlob = null
-  let mime = 'image/jpg'
-  const storageLocation = firebase.storage().ref(
-    "users/" + userID + "/photos/" + photoID + ".jpg"
-  );
-  fs.readFile(image.path, 'base64').then((data) => {
-    return Blob.build(data, {
-      type: `${mime};BASE64`
+  const Blob = RNFetchBlob.polyfill.Blob;
+  const fs = RNFetchBlob.fs;
+  window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+  window.Blob = Blob;
+  let uploadBlob = null;
+  let mime = "image/jpg";
+  const storageLocation = firebase
+    .storage()
+    .ref("users/" + userID + "/photos/" + photoID + ".jpg");
+  fs.readFile(image.path, "base64")
+    .then(data => {
+      return Blob.build(data, {
+        type: `${mime};BASE64`
+      });
+    })
+    .then(blob => {
+      uploadBlob = blob;
+      return storageLocation
+        .put(blob, {
+          contentType: mime
+        })
+        .then(() => {
+          uploadBlob.close();
+          return storageLocation.getDownloadURL();
+        })
+        .then(url => {
+          console.log("uploaded image url: " + url);
+        });
     });
-  }).then((blob) => {
-    uploadBlob = blob;
-    return storageLocation.put(blob, {
-      contentType: mime
-    }).then(() => {
-      uploadBlob.close();
-      return storageLocation.getDownloadURL();
-    }).then((url) => {
-      console.log('uploaded image url: ' + url);
-    });
-  });
-
-
-
 
   /* const storageLocation = firebase.storage().ref(
     "users/" + userID + "/photos/" + photoID + ".jpg"
@@ -98,5 +122,4 @@ export function uploadPhoto(photoData, image) {
     console.log(data);
   });
 }); */
-
 }
