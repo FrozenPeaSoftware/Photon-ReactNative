@@ -3,6 +3,9 @@ package com.photon;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import fr.snapp.imagebase64.RNImgToBase64Package;
+import com.rnfs.RNFSPackage;
+import io.github.traviskn.rnuuidgenerator.RNUUIDGeneratorPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNImgToBase64Package(),
+            new RNFSPackage(),
+          new RNUUIDGeneratorPackage(),
           new RNGooglePlacesPackage(),
           new PickerPackage(),
           new MapsPackage()

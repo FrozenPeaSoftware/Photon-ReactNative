@@ -17,6 +17,8 @@ import {
   Button
 } from "react-native-elements";
 
+import { getUserID, uploadPhoto } from "../Firebase";
+
 import RNGooglePlaces from "react-native-google-places";
 
 type Props = {};
@@ -28,9 +30,18 @@ class PhotoOptions extends Component<Props> {
       locationItemSelected: false,
       locationQuery: "",
       predictions: [],
-
-      location: "",
-      description: ""
+      
+      photoData: {
+        coordinates: {
+          latitude: -1,
+          longitude: -1,
+        },
+        description: "",
+        locationDescription: "",
+        timestamp: "",
+        url: "",
+        userID: ""
+      }
     };
   }
 
@@ -38,9 +49,8 @@ class PhotoOptions extends Component<Props> {
     this.setState({
       locationItemSelected: false,
       locationQuery: locationQuery,
-      location: locationQuery
+      locationDescription: locationQuery
     });
-    console.log("changed");
     RNGooglePlaces.getAutocompletePredictions(this.state.locationQuery)
       .then(places => {
         this.setState({
@@ -53,12 +63,14 @@ class PhotoOptions extends Component<Props> {
   lookupLocationByID = (id) => {
     RNGooglePlaces.lookUpPlaceByID(id)
     .then((location) => {
-      this.setState({
-        locationItemSelected: true,
-        locationQuery: location.name,
-        location: location
-      });
-      console.log(location);
+      let state = JSON.parse(JSON.stringify(this.state));
+      state.locationItemSelected = true;
+      state.locationQuery = location.address;
+      state.photoData.coordinates = { latitude: location.latitude, longitude: location.longitude };
+      state.photoData.locationDescription = location.address;
+      state.photoData.timestamp = new Date().toUTCString();
+      this.setState(state);
+      /* console.log(location); */
     })
     .catch((error) => console.log(error.message));
   }
@@ -113,8 +125,12 @@ class PhotoOptions extends Component<Props> {
           <FormLabel style={[styles.label]}>Description</FormLabel>
           <FormInput
             inputStyle={[styles.formInput]}
-            onChangeText={description => this.setState({ description })}
-            value={this.state.description}
+            onChangeText={description => {
+              let state = JSON.parse(JSON.stringify(this.state));
+              state.photoData.description = description;
+              this.setState(state);
+            }}
+            value={this.state.photoData.description}
           />
           <Image style={[styles.imagePreview]} source={{ uri: image.path }} />
           <View style={[styles.buttonsContainer]}>
@@ -128,10 +144,8 @@ class PhotoOptions extends Component<Props> {
               style={[styles.button]}
               onPress={() =>
                 upload(
-                  this.props,
-                  image,
-                  this.state.location,
-                  this.state.description
+                  this.state,
+                  image
                 )
               }
             >
@@ -144,14 +158,17 @@ class PhotoOptions extends Component<Props> {
   }
 }
 
-function upload(props, image, location, description) {
-  console.log("Uploading...");
-  console.log(location + " " + description);
-  props.navigation.navigate("Photo", {
+function upload(state, image) {
+  /* console.log("Uploading...");
+  console.log(location + " " + description); */
+  let newState = JSON.parse(JSON.stringify(state));
+  newState.photoData.userID = getUserID();
+  uploadPhoto(newState.photoData, image);
+  /* props.navigation.navigate("Photo", {
     image: image,
     location: location,
     description: description
-  });
+  }); */
 }
 
 const styles = StyleSheet.create({

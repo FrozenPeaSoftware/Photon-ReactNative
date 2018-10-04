@@ -1,4 +1,10 @@
 rootProject.name = 'photon'
+include ':react-native-image-base64'
+project(':react-native-image-base64').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-base64/android')
+include ':react-native-fs'
+project(':react-native-fs').projectDir = new File(settingsDir, '../node_modules/react-native-fs/android')
+include ':react-native-uuid-generator'
+project(':react-native-uuid-generator').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-uuid-generator/android')
 include ':react-native-google-places'
 project(':react-native-google-places').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-google-places/android')
 include ':react-native-image-crop-picker'

@@ -138,6 +138,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-base64')
+    compile project(':react-native-fs')
+    compile project(':react-native-uuid-generator')
     compile project(':react-native-google-places')
     compile project(':react-native-image-crop-picker')
     compile fileTree(dir: "libs", include: ["*.jar"])

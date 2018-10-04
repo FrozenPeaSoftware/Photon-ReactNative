@@ -2,6 +2,10 @@ import firebase from "firebase";
 
 require("firebase/firestore");
 
+import uuid from 'react-native-uuid';
+
+var RNFS = require('react-native-fs');
+
 const config = {
   apiKey: "AIzaSyAPCjIBhQz9Z71MefUIauXb92YtMQuxPIU",
   authDomain: "photon-1532314056313.firebaseapp.com",
@@ -37,15 +41,35 @@ export async function updateProfile(userID, name, username, biography) {
   //console.log(firebase.firestore().collection("users").doc(userID).onSnapshot());
   const docRef = firebase.firestore().doc("users/" + userID);
   return docRef
-      .set({
-        name: name,
-        username: username,
-        biography: biography,
-      })
-      .then(function() {
-        console.log("Success");
-      })
-      .catch(function(error) {
-        console.log("Error: " + error);
-      }); 
+    .set({
+      name: name,
+      username: username,
+      biography: biography,
+    })
+    .then(function () {
+      console.log("Success");
+    })
+    .catch(function (error) {
+      console.log("Error: " + error);
+    });
+}
+
+export function uploadPhoto(photoData, image) {
+  const userID = getUserID();
+  const photoID = uuid.v4();
+
+  RNFS.readFile(image.path, 'base64').then((data) => {
+    const storageLocation = firebase.storage().ref(
+      "users/" + userID + "/photos/" + photoID + ".jpg"
+    );
+
+    const base64 = data.substr(1);
+
+    console.log(base64);
+
+    storageLocation.putString(base64, 'base64').then(data => {
+      console.log(data);
+    });
+  });
+
 }

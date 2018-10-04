@@ -3,5 +3,6 @@ export {
   loginWithEmail,
   registerWithEmail,
   getUserID,
-  updateProfile
+  updateProfile,
+  uploadPhoto
 } from "./Firebase";
