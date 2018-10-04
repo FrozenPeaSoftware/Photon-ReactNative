@@ -4,7 +4,7 @@ require("firebase/firestore");
 
 import uuid from 'react-native-uuid';
 
-var RNFS = require('react-native-fs');
+import RNFetchBlob from 'react-native-fetch-blob'
 
 const config = {
   apiKey: "AIzaSyAPCjIBhQz9Z71MefUIauXb92YtMQuxPIU",
@@ -58,18 +58,45 @@ export function uploadPhoto(photoData, image) {
   const userID = getUserID();
   const photoID = uuid.v4();
 
-  RNFS.readFile(image.path, 'base64').then((data) => {
-    const storageLocation = firebase.storage().ref(
-      "users/" + userID + "/photos/" + photoID + ".jpg"
-    );
-
-    const base64 = data.substr(1);
-
-    console.log(base64);
-
-    storageLocation.putString(base64, 'base64').then(data => {
-      console.log(data);
+  const Blob = RNFetchBlob.polyfill.Blob
+  const fs = RNFetchBlob.fs
+  window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+  window.Blob = Blob
+  let uploadBlob = null
+  let mime = 'image/jpg'
+  const storageLocation = firebase.storage().ref(
+    "users/" + userID + "/photos/" + photoID + ".jpg"
+  );
+  fs.readFile(image.path, 'base64').then((data) => {
+    return Blob.build(data, {
+      type: `${mime};BASE64`
+    });
+  }).then((blob) => {
+    uploadBlob = blob;
+    return storageLocation.put(blob, {
+      contentType: mime
+    }).then(() => {
+      uploadBlob.close();
+      return storageLocation.getDownloadURL();
+    }).then((url) => {
+      console.log('uploaded image url: ' + url);
     });
   });
+
+
+
+
+  /* const storageLocation = firebase.storage().ref(
+    "users/" + userID + "/photos/" + photoID + ".jpg"
+  );
+
+  const base64 = 'data:image/jpeg;base64,' + data;
+
+  console.log(base64);
+
+  storageLocation.putString(base64, 'data_url').then(data => {
+    console.log(data);
+  });
+}); */
 
 }

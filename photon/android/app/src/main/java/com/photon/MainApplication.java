@@ -3,6 +3,9 @@ package com.photon;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import fr.snapp.imagebase64.RNImgToBase64Package;
 import com.rnfs.RNFSPackage;
 import io.github.traviskn.rnuuidgenerator.RNUUIDGeneratorPackage;
@@ -29,12 +32,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNImgToBase64Package(),
-            new RNFSPackage(),
+          new VectorIconsPackage(),
+          new MapsPackage(),
+          new RNFetchBlobPackage(),
+          new RNImgToBase64Package(),
+          new RNFSPackage(),
           new RNUUIDGeneratorPackage(),
           new RNGooglePlacesPackage(),
-          new PickerPackage(),
-          new MapsPackage()
+          new PickerPackage()
       );
     }
 
