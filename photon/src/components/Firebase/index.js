@@ -5,5 +5,6 @@ export {
   getUserID,
   updateProfile,
   getUserInfo,
-  uploadPhoto
+  uploadPhoto,
+  createPhotoDoc
 } from "./Firebase";

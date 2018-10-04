@@ -17,7 +17,7 @@ import {
   Button
 } from "react-native-elements";
 
-import { getUserID, uploadPhoto } from "../Firebase";
+import { getUserID, uploadPhoto, createPhotoDoc } from "../Firebase";
 
 import RNGooglePlaces from "react-native-google-places";
 
@@ -163,7 +163,16 @@ function upload(state, image) {
   console.log(location + " " + description); */
   let newState = JSON.parse(JSON.stringify(state));
   newState.photoData.userID = getUserID();
-  uploadPhoto(newState.photoData, image);
+  global.photoData = newState.photoData;
+  global.photoPath = image.path;
+
+  console.log(global.photoData + ' ' + global.photoPath)
+  /* const url = uploadPhoto(image);
+  url.then((data) => {
+    newState.photoData.url = data;
+    createPhotoDoc(newState.photoData);
+    console.log(data);
+  }); */
   /* props.navigation.navigate("Photo", {
     image: image,
     location: location,
