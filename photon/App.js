@@ -13,6 +13,9 @@ import Firebase from "./src/components/Firebase";
 
 //console.disableYellowBox = true;
 
+global.photoData = [];
+global.photoPath = [];
+
 const AppRouter = createStackNavigator(
   {
     Login: {

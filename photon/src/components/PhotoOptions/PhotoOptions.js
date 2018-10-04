@@ -163,8 +163,8 @@ function upload(state, image) {
   console.log(location + " " + description); */
   let newState = JSON.parse(JSON.stringify(state));
   newState.photoData.userID = getUserID();
-  global.photoData = newState.photoData;
-  global.photoPath = image.path;
+  global.photoData.push(newState.photoData);
+  global.photoPath.push(image.path);
 
   console.log(global.photoData + ' ' + global.photoPath)
   /* const url = uploadPhoto(image);
