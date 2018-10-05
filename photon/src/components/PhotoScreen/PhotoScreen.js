@@ -25,8 +25,8 @@ class PhotoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: props.navigation.getParam('location'),
-      description: '',
+      photoData: global.photoData[global.photoData.length - 1],
+      photoPath: global.photoData[global.photoData.length - 1],
       liked: false };
   }
 
@@ -39,8 +39,6 @@ class PhotoScreen extends Component {
   render() {
     const image = this.props.navigation.getParam('image');
     console.log(image.path);
-    const location = this.props.navigation.getParam('location');
-    const description = this.props.navigation.getParam('description');
     return <View style={[styles.main]}>
       <View style={[styles.headerContainer]}>
         <TouchableOpacity onPress={() => showProfile(this.props, image)}>
@@ -48,7 +46,7 @@ class PhotoScreen extends Component {
         </TouchableOpacity>
         <View style={[styles.nameAndLocationContainer]}>
           <Text style={[styles.headerName]}>Leyton Blackler</Text>
-          <Text style={[styles.headerLocation]}>{location.name}</Text>
+          <Text style={[styles.headerLocation]}>{this.state.photoData.locationDescription}</Text>
         </View>
       </View>
       <DoubleClick onClick={this.toggleLikedStatus}>
@@ -63,7 +61,7 @@ class PhotoScreen extends Component {
           <Icon name='ios-chatbubbles' color='#4ca7ed' size={40}/>
           <Text style={[styles.likesAndCommentsCount]}>0</Text>
         </View>
-        <Text style={[styles.description]}>{description}</Text>
+        <Text style={[styles.description]}>{this.state.photoData.description}</Text>
       </View>
       <View style={[styles.divider]}/>
       <View style={[styles.commentBoxContainer]}>
