@@ -43,7 +43,15 @@ class PhotoScreen extends Component {
     newState.comments.push(this.state.currentComment);
     newState.currentComment = '';
     this.setState(newState);
+  }
+
+  renderComments = () => {
     console.log(this.state.comments);
+    return <View>
+      {
+        this.state.comments.map(comment => {return <View key={comment} style={styles.commentContainer}><Text style={styles.commentName}>Leyton Blackler </Text><Text style={styles.commentText}>{comment}</Text></View>})
+      }
+    </View>
   }
 
   render() {
@@ -72,6 +80,9 @@ class PhotoScreen extends Component {
         <Text style={[styles.description]}>{this.state.photoData.description}</Text>
       </View>
       <View style={[styles.divider]}/>
+      {
+        this.renderComments()
+      }
       <View style={[styles.commentBoxContainer]}>
         <View>
           <FormLabel style={[styles.label]}>Comment</FormLabel>
@@ -201,6 +212,23 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: 'space-evenly',
     alignItems: "center"
+  },
+  commentName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#000000'
+  },
+  commentText: {
+    fontSize: 14,
+    color: '#000000'
+  },
+  commentContainer: {
+    flexDirection: "row",
+    justifyContent: 'flex-start',
+    alignItems: "center",
+    marginLeft: 20,
+    marginTop: 10,
+    marginBottom: 10,
   }
 });
 
