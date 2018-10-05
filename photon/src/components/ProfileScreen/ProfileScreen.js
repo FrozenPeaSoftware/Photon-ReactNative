@@ -1,10 +1,61 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import PhotoGrid from "react-native-image-grid";
+import { getUserID, getUserInfo } from "../Firebase";
 
 class ProfileScreen extends Component {
+  state = { photoPath: [], name: "", username: "", biography: "" };
+  userID = getUserID();
+
+  constructor() {
+    super();
+    this.state = { photoPath: global.photoPath };
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState(previousState => {
+        return { photoPath: !previousState.photoPath };
+      });
+      let userInfo = getUserInfo(this.userID);
+      userInfo.then(result => {
+        if (result != null) {
+          this.updateState(
+            result.name,
+            result.username,
+            result.biography,
+            false
+          );
+        } else {
+          this.updateState("", "", "", false);
+        }
+      });
+    }, 1000);
+
+    let userInfo = getUserInfo(this.userID);
+    userInfo.then(result => {
+      if (result != null) {
+        this.updateState(result.name, result.username, result.biography, false);
+      } else {
+        this.updateState("", "", "", false);
+      }
+    });
+  }
+
+  updateState(name, username, biography, loading) {
+    this.setState({
+      name,
+      username,
+      biography,
+      loading
+    });
+  }
+
+  onPressOptions() {
+    this.props.navigation.navigate("CustomiseProfile", {
+      prevComponent: "customiseProfile"
+    });
+  }
+
   render() {
-    const image = this.props.navigation.getParam('image');
     return (
       <View style={styles.main}>
         <View style={styles.profileHeader}>
@@ -12,7 +63,10 @@ class ProfileScreen extends Component {
             <View style={styles.imageContainer}>
               <Image
                 style={styles.profilePicture}
-                source={{uri: 'https://instagram.fakl1-2.fna.fbcdn.net/vp/f14a92850c2e674f8964fb85e151a41e/5C242956/t51.2885-19/s150x150/38096749_208075379863871_8613051600635691008_n.jpg'}}
+                source={{
+                  uri:
+                    "https://instagram.fakl1-2.fna.fbcdn.net/vp/f14a92850c2e674f8964fb85e151a41e/5C242956/t51.2885-19/s150x150/38096749_208075379863871_8613051600635691008_n.jpg"
+                }}
               />
             </View>
             <View style={styles.followerContainer}>
@@ -31,7 +85,10 @@ class ProfileScreen extends Component {
                 </View>
               </View>
               <View style={styles.followerContainerBot}>
-                <TouchableOpacity style={styles.optionsButton}>
+                <TouchableOpacity
+                  style={styles.optionsButton}
+                  onPress={() => this.onPressOptions()}
+                >
                   <Text style={styles.buttonText}>Options</Text>
                 </TouchableOpacity>
               </View>
@@ -39,23 +96,54 @@ class ProfileScreen extends Component {
           </View>
           <View style={styles.profileHeaderBot}>
             <Text style={{ color: "black", fontWeight: "bold" }}>
-              Leyton Blackler
+              {this.state.name}
             </Text>
-            <Text>I love React Native!</Text>
+            <Text>{this.state.biography}</Text>
           </View>
         </View>
 
         <View style={styles.divider} />
 
-        <View style={styles.photoGrid}>
-          <Image
-            style={styles.gridImage}
-            source={{uri:image.path}}
-          />
-        </View>
+        {renderPhotos()}
       </View>
     );
   }
+}
+
+function renderPhotos() {
+  if (global.photoPath[0] != null) {
+    return (
+      <PhotoGrid
+        data={global.photoPath}
+        itemsPerRow={2}
+        itemMargin={1}
+        itemPaddingHorizontal={5}
+        renderHeader={renderHeader}
+        renderItem={renderItem}
+      />
+    );
+  }
+}
+
+function renderHeader() {
+  return <Text />;
+}
+
+function renderItem(path, itemSize, itemPaddingHorizontal) {
+  return (
+    <TouchableOpacity
+      style={{
+        width: itemSize,
+        height: itemSize,
+        paddingHorizontal: itemPaddingHorizontal
+      }}
+      onPress={() => {
+        // Do Something
+      }}
+    >
+      <Image resizeMode="cover" style={{ flex: 1 }} source={{ uri: path }} />
+    </TouchableOpacity>
+  );
 }
 
 export default ProfileScreen;
@@ -147,14 +235,5 @@ const styles = StyleSheet.create({
     height: 2,
     marginLeft: 15,
     marginRight: 15
-  },
-  photoGrid: {
-    margin: 15,
-    height: "75%",
-    //backgroundColor: "aliceblue"
-  },
-  gridImage: {
-    width: 180,
-    height: 180
   }
 });

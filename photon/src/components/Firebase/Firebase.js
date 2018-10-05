@@ -40,12 +40,13 @@ export async function registerWithEmail(email, password) {
 }
 
 export function getUserID() {
+  console.log(firebase.auth().currentUser.uid.toString());
   return firebase.auth().currentUser.uid.toString();
   //return "2kccav5F5bgBCWpCMDpR1cWFRry2";
 }
 
-export async function updateProfile(userID, name, username, biography) {
-  const docRef = firebase.firestore().doc("users/" + userID);
+export async function updateProfile(name, username, biography) {
+  const docRef = firebase.firestore().doc("users/" + getUserID());
   return docRef
     .set({
       name: name,
