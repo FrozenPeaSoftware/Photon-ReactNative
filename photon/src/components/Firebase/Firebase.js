@@ -40,6 +40,7 @@ export async function registerWithEmail(email, password) {
 }
 
 export function getUserID() {
+  console.log(firebase.auth().currentUser.uid.toString());
   return firebase.auth().currentUser.uid.toString();
   //return "2kccav5F5bgBCWpCMDpR1cWFRry2";
 }

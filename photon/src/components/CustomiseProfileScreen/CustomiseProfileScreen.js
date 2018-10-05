@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ActivityIndicator
+} from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -28,9 +35,12 @@ class CustomiseProfileScreen extends Component {
   }
 
   updateState(name, username, biography, loading) {
-    this.setState({ 
-      name, username, biography, loading
-    }); 
+    this.setState({
+      name,
+      username,
+      biography,
+      loading
+    });
   }
 
   saveProfile() {
@@ -43,60 +53,75 @@ class CustomiseProfileScreen extends Component {
     //this.props.navigation.navigate("Tabs");
   }
 
+  cancel() {
+    this.props.navigation.goBack();
+  }
+
   render() {
     if (this.state.loading) {
       return (
-        <View style={{flex: 1, justifyContent: "space-evenly", backgroundColor: "white"}}>
-          <ActivityIndicator size="large"></ActivityIndicator>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "space-evenly",
+            backgroundColor: "white"
+          }}
+        >
+          <ActivityIndicator size="large" />
         </View>
-      )
+      );
     } else {
-
-    return (
-      <View style={styles.main}>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.logo}
-              source={require("../../../res/logo.png")}
-            />
-          </View>
-          {/* <Text style={styles.title}>Register</Text> */}
-          <View style={styles.formContainer}>
-            <FormLabel>Name</FormLabel>
-            <FormInput
-              inputStyle={styles.formInput}
-              value={this.state.name}
-              onChangeText={name => this.setState({ name })}
-            />
-            <FormLabel>Username</FormLabel>
-            <FormInput
-              inputStyle={styles.formInput}
-              value={this.state.username}
-              onChangeText={username => this.setState({ username })}
-            />
-            <FormLabel>Biography</FormLabel>
-            <FormInput
-              inputStyle={styles.formInput}
-              value={this.state.biography}
-              multiline={true}
-              numberOfLines={3}
-              onChangeText={biography => this.setState({ biography })}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.saveProfile()}
-            >
-              <Text style={styles.buttonText}>Save Profile</Text>
-            </TouchableOpacity>
+      return (
+        <View style={styles.main}>
+          <View style={styles.container}>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.logo}
+                source={require("../../../res/logo.png")}
+              />
+            </View>
+            {/* <Text style={styles.title}>Register</Text> */}
+            <View style={styles.formContainer}>
+              <FormLabel>Name</FormLabel>
+              <FormInput
+                inputStyle={styles.formInput}
+                value={this.state.name}
+                onChangeText={name => this.setState({ name })}
+              />
+              <FormLabel>Username</FormLabel>
+              <FormInput
+                inputStyle={styles.formInput}
+                value={this.state.username}
+                onChangeText={username => this.setState({ username })}
+              />
+              <FormLabel>Biography</FormLabel>
+              <FormInput
+                inputStyle={styles.formInput}
+                value={this.state.biography}
+                multiline={true}
+                numberOfLines={3}
+                onChangeText={biography => this.setState({ biography })}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.cancel()}
+              >
+                <Text style={styles.buttonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.saveProfile()}
+              >
+                <Text style={styles.buttonText}>Save Profile</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    );
+      );
+    }
   }
-}
 }
 
 const styles = StyleSheet.create({
@@ -136,12 +161,14 @@ const styles = StyleSheet.create({
     paddingRight: 10
   },
   buttonContainer: {
-    alignItems: "center"
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    //alignItems: "center"
     //backgroundColor: "pink"
   },
   button: {
     backgroundColor: "#4ca7ed",
-    width: 200,
+    width: 180,
     height: 55,
     borderRadius: 50,
     alignItems: "center",

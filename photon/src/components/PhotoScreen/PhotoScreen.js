@@ -48,7 +48,7 @@ class PhotoScreen extends Component {
         </TouchableOpacity>
         <View style={[styles.nameAndLocationContainer]}>
           <Text style={[styles.headerName]}>Leyton Blackler</Text>
-          <Text style={[styles.headerLocation]}>{location.name}</Text>
+          {/* <Text style={[styles.headerLocation]}>{location.name}</Text> */}
         </View>
       </View>
       <DoubleClick onClick={this.toggleLikedStatus}>
