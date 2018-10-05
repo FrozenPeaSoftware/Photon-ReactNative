@@ -27,13 +27,23 @@ class PhotoScreen extends Component {
     this.state = {
       photoData: this.props.navigation.getParam('photoData'),
       photoPath: this.props.navigation.getParam('photoPath'),
-      liked: false };
+      liked: false,
+      currentComment: '',
+      comments: [] };
   }
 
   toggleLikedStatus = () => {
-    this.setState({
-      liked: !this.state.liked
-    });
+    let newState = JSON.parse(JSON.stringify(this.state));
+    newState.liked = !this.state.liked;
+    this.setState(newState);
+  }
+
+  submitComment = () => {
+    let newState = JSON.parse(JSON.stringify(this.state));
+    newState.comments.push(this.state.currentComment);
+    newState.currentComment = '';
+    this.setState(newState);
+    console.log(this.state.comments);
   }
 
   render() {
@@ -55,9 +65,9 @@ class PhotoScreen extends Component {
           <TouchableOpacity onPress={this.toggleLikedStatus}>
             <Icon style={this.state.liked ? styles.likeIconActive : styles.likeIconInactive} name='md-heart' size={40}/>
           </TouchableOpacity>
-          <Text style={[styles.likesAndCommentsCount]}>0</Text>
+          <Text style={[styles.likesAndCommentsCount]}>{this.state.liked ? 1 : 0}</Text>
           <Icon name='ios-chatbubbles' color='#4ca7ed' size={40}/>
-          <Text style={[styles.likesAndCommentsCount]}>0</Text>
+          <Text style={[styles.likesAndCommentsCount]}>{this.state.comments.length}</Text>
         </View>
         <Text style={[styles.description]}>{this.state.photoData.description}</Text>
       </View>
@@ -65,10 +75,14 @@ class PhotoScreen extends Component {
       <View style={[styles.commentBoxContainer]}>
         <View>
           <FormLabel style={[styles.label]}>Comment</FormLabel>
-          <FormInput inputStyle={[styles.formInput]}/>
+          <FormInput value={this.state.currentComment} onChangeText={currentComment => {
+              let state = JSON.parse(JSON.stringify(this.state));
+              state.currentComment = currentComment;
+              this.setState(state);
+            }} inputStyle={[styles.formInput]}/>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={this.submitComment}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
