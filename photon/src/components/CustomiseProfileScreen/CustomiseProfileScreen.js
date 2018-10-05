@@ -20,7 +20,6 @@ class CustomiseProfileScreen extends Component {
   state = { name: "", username: "", biography: "", loading: true };
   imageSource = "";
   userID = getUserID();
-  unsubscribe = null;
 
   constructor() {
     super();
@@ -43,21 +42,10 @@ class CustomiseProfileScreen extends Component {
     });
   }
 
-  saveProfile() {
-    updateProfile(
-      this.userID,
-      this.state.name,
-      this.state.username,
-      this.state.biography
-    );
-    //this.props.navigation.navigate("Tabs");
-  }
-
-  cancel() {
-    this.props.navigation.goBack();
-  }
-
   render() {
+    const prevComponent = this.props.navigation.getParam("prevComponent");
+    const navigation = this.props.navigation;
+
     if (this.state.loading) {
       return (
         <View
@@ -103,25 +91,54 @@ class CustomiseProfileScreen extends Component {
                 onChangeText={biography => this.setState({ biography })}
               />
             </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.cancel()}
-              >
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.saveProfile()}
-              >
-                <Text style={styles.buttonText}>Save Profile</Text>
-              </TouchableOpacity>
-            </View>
+            {renderButtonsContainer(prevComponent, this.state, navigation)}
           </View>
         </View>
       );
     }
   }
+}
+
+function renderButtonsContainer(prevComponent, state, navigation) {
+  if (prevComponent != "register") {
+    return (
+      <View style={styles.doubleButtonContainer}>
+        <TouchableOpacity style={styles.button} onPress={() => cancel(navigation)}>
+          <Text style={styles.buttonText}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => saveProfile(state, navigation)}
+        >
+          <Text style={styles.buttonText}>Save Profile</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.singleButtonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => saveProfile(state, navigation)}
+        >
+          <Text style={styles.buttonText}>Save Profile</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+
+function saveProfile(state, navigation) {
+  updateProfile(
+    state.name,
+    state.username,
+    state.biography
+  );
+  navigation.navigate("Tabs");
+}
+
+function cancel(navigation) {
+  navigation.goBack();
 }
 
 const styles = StyleSheet.create({
@@ -160,11 +177,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    //alignItems: "center"
+  singleButtonContainer: {
+    alignItems: "center"
     //backgroundColor: "pink"
+  },
+  doubleButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly"
   },
   button: {
     backgroundColor: "#4ca7ed",

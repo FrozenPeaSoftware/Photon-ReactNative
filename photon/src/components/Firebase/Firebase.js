@@ -45,8 +45,8 @@ export function getUserID() {
   //return "2kccav5F5bgBCWpCMDpR1cWFRry2";
 }
 
-export async function updateProfile(userID, name, username, biography) {
-  const docRef = firebase.firestore().doc("users/" + userID);
+export async function updateProfile(name, username, biography) {
+  const docRef = firebase.firestore().doc("users/" + getUserID());
   return docRef
     .set({
       name: name,

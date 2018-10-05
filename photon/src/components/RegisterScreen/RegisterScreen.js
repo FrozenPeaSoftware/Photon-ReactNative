@@ -18,10 +18,12 @@ class RegisterScreen extends Component {
 
     registerWithEmail(email, password)
       .then(() => {
+        console.log("Successfully created profile");
         this.setState({ error: "", email: "", password: "", loading: false });
-        this.props.navigation.navigate("CustomiseProfile");
+        this.props.navigation.navigate("CustomiseProfile", { prevComponent: "register" });
       })
       .catch(() => {
+        console.log("Error");
         this.setState({ error: "An error occurred", loading: false });
       });
   }

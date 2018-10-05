@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import PhotoGrid from "react-native-image-grid";
+import { getUserID, getUserInfo } from "../Firebase";
 
 class ProfileScreen extends Component {
-  state = { photoPath: [] };
+  state = { photoPath: [], name: "", username: "", biography: "" };
+  userID = getUserID();
 
   constructor() {
     super();
@@ -13,11 +15,44 @@ class ProfileScreen extends Component {
       this.setState(previousState => {
         return { photoPath: !previousState.photoPath };
       });
+      let userInfo = getUserInfo(this.userID);
+      userInfo.then(result => {
+        if (result != null) {
+          this.updateState(
+            result.name,
+            result.username,
+            result.biography,
+            false
+          );
+        } else {
+          this.updateState("", "", "", false);
+        }
+      });
     }, 1000);
+
+    let userInfo = getUserInfo(this.userID);
+    userInfo.then(result => {
+      if (result != null) {
+        this.updateState(result.name, result.username, result.biography, false);
+      } else {
+        this.updateState("", "", "", false);
+      }
+    });
+  }
+
+  updateState(name, username, biography, loading) {
+    this.setState({
+      name,
+      username,
+      biography,
+      loading
+    });
   }
 
   onPressOptions() {
-    this.props.navigation.navigate("CustomiseProfile");
+    this.props.navigation.navigate("CustomiseProfile", {
+      prevComponent: "customiseProfile"
+    });
   }
 
   render() {
@@ -61,9 +96,9 @@ class ProfileScreen extends Component {
           </View>
           <View style={styles.profileHeaderBot}>
             <Text style={{ color: "black", fontWeight: "bold" }}>
-              Leyton Blackler
+              {this.state.name}
             </Text>
-            <Text>I love React Native!</Text>
+            <Text>{this.state.biography}</Text>
           </View>
         </View>
 
