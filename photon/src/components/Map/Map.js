@@ -12,7 +12,10 @@ class Map extends Component {
         longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421}}>
-        <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324}}><Icon name='md-pin' color='#4ca7ed' size={80}/></Marker>
+        <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324}}>
+          <Icon name='md-pin' color='#4ca7ed' size={80}/>
+          <Image style={[styles.photo]} source={{uri: global.photoPath[0]}}></Image>
+        </Marker>
       </MapView>
     </View>
   }
@@ -29,6 +32,11 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  photo: {
+    width: 40,
+    height: 40,
+    borderRadius: 50
+  }
  });
 
 export default Map;

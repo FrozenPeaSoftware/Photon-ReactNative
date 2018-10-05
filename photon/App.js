@@ -11,10 +11,22 @@ import ProfileScreen from "./src/components/ProfileScreen";
 import CustomiseProfileScreen from "./src/components/CustomiseProfileScreen/CustomiseProfileScreen";
 import Firebase from "./src/components/Firebase";
 
+import { YellowBox } from 'react-native';
+import _ from 'lodash';
+
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
+
 //console.disableYellowBox = true;
 
 global.photoData = [];
 global.photoPath = [];
+
 
 const AppRouter = createStackNavigator(
   {
@@ -60,6 +72,7 @@ const AppRouter = createStackNavigator(
 );
 
 export default class App extends React.Component {
+
   // static navigationOptions = { title: 'Login', header: { visible:false } };
   componentWillMount() {
     //Firebase.init();

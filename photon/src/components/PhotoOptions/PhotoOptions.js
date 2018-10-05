@@ -69,6 +69,7 @@ class PhotoOptions extends Component<Props> {
       state.photoData.coordinates = { latitude: location.latitude, longitude: location.longitude };
       state.photoData.locationDescription = location.address;
       state.photoData.timestamp = new Date().toUTCString();
+      state.photoData.location = location;
       this.setState(state);
       /* console.log(location); */
     })
@@ -144,6 +145,7 @@ class PhotoOptions extends Component<Props> {
               style={[styles.button]}
               onPress={() =>
                 upload(
+                  this.props,
                   this.state,
                   image
                 )
@@ -158,7 +160,7 @@ class PhotoOptions extends Component<Props> {
   }
 }
 
-function upload(state, image) {
+function upload(props, state, image) {
   /* console.log("Uploading...");
   console.log(location + " " + description); */
   let newState = JSON.parse(JSON.stringify(state));
@@ -173,11 +175,11 @@ function upload(state, image) {
     createPhotoDoc(newState.photoData);
     console.log(data);
   }); */
-  /* props.navigation.navigate("Photo", {
+  props.navigation.navigate("Photo", {
     image: image,
-    location: location,
-    description: description
-  }); */
+    location: newState.location,
+    description: newState.description
+  });
 }
 
 const styles = StyleSheet.create({
