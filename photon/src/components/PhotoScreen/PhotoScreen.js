@@ -25,8 +25,8 @@ class PhotoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      photoData: global.photoData[global.photoData.length - 1],
-      photoPath: global.photoData[global.photoData.length - 1],
+      photoData: this.props.navigation.getParam('photoData'),
+      photoPath: this.props.navigation.getParam('photoPath'),
       liked: false };
   }
 
@@ -37,11 +37,9 @@ class PhotoScreen extends Component {
   }
 
   render() {
-    const image = this.props.navigation.getParam('image');
-    console.log(image.path);
     return <View style={[styles.main]}>
       <View style={[styles.headerContainer]}>
-        <TouchableOpacity onPress={() => showProfile(this.props, image)}>
+        <TouchableOpacity onPress={() => showProfile(this.props)}>
           <Image style={[styles.profilePhoto]} source={{uri: 'https://instagram.fakl1-2.fna.fbcdn.net/vp/f14a92850c2e674f8964fb85e151a41e/5C242956/t51.2885-19/s150x150/38096749_208075379863871_8613051600635691008_n.jpg'}}/>
         </TouchableOpacity>
         <View style={[styles.nameAndLocationContainer]}>
@@ -50,7 +48,7 @@ class PhotoScreen extends Component {
         </View>
       </View>
       <DoubleClick onClick={this.toggleLikedStatus}>
-        <Image style={[styles.photo]} source={{uri: image.path}}/>
+        <Image style={[styles.photo]} source={{uri: this.state.photoPath}}/>
       </DoubleClick>
       <View style={[styles.photoFooterContainer]}>
         <View style={[styles.likeAndCommentIconsContainer]}>
@@ -79,10 +77,8 @@ class PhotoScreen extends Component {
   }
 }
 
-function showProfile(props, image) {
-  props.navigation.navigate('Profile', {
-    image: image
-  });
+function showProfile(props) {
+  props.navigation.navigate('Profile');
 }
 
 const styles = StyleSheet.create({

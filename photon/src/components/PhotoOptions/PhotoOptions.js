@@ -161,24 +161,15 @@ class PhotoOptions extends Component<Props> {
 }
 
 function upload(props, state, image) {
-  /* console.log("Uploading...");
-  console.log(location + " " + description); */
+  console.log("Uploading...");
   let newState = JSON.parse(JSON.stringify(state));
   newState.photoData.userID = getUserID();
   global.photoData.push(newState.photoData);
   global.photoPath.push(image.path);
-
-  console.log(global.photoData + ' ' + global.photoPath)
-  /* const url = uploadPhoto(image);
-  url.then((data) => {
-    newState.photoData.url = data;
-    createPhotoDoc(newState.photoData);
-    console.log(data);
-  }); */
+  console.log(global.photoData + ' ' + global.photoPath);
   props.navigation.navigate("Photo", {
-    image: image,
-    location: newState.location,
-    description: newState.description
+    photoData: newState.photoData,
+    photoPath: image.path
   });
 }
 
