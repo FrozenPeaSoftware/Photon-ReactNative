@@ -14,13 +14,15 @@ import DoubleClick from 'react-native-double-click';
 
 class PhotoScreen extends Component {
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerRight: (
-      <TouchableOpacity style={{marginRight: 20}}onPress={this.toggleLikedStatus}>
+      <TouchableOpacity style={{marginRight: 20}} onPress={() => {
+        navigation.navigate("Map", {latitude: navigation.getParam('photoData').coordinates.latitude,longitude: navigation.getParam('photoData').coordinates.longitude})
+        }}>
         <Icon name='md-pin' color='#4ca7ed' size={30}/>
       </TouchableOpacity>
     ),
-  };
+  })
 
   constructor(props) {
     super(props);

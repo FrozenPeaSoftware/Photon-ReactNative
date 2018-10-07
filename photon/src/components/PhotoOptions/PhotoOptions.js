@@ -60,16 +60,16 @@ class PhotoOptions extends Component<Props> {
       .catch(error => console.log(error.message));
   };
 
-  lookupLocationByID = (id) => {
-    RNGooglePlaces.lookUpPlaceByID(id)
-    .then((location) => {
+  lookupLocationByID = (locationPrediction) => {
+    RNGooglePlaces.lookUpPlaceByID(locationPrediction.placeID)
+    .then((locationItem) => {
       let state = JSON.parse(JSON.stringify(this.state));
       state.locationItemSelected = true;
-      state.locationQuery = location.address;
-      state.photoData.coordinates = { latitude: location.latitude, longitude: location.longitude };
-      state.photoData.locationDescription = location.address;
+      state.locationQuery = locationPrediction.fullText;
+      state.photoData.coordinates = { latitude: locationItem.latitude, longitude: locationItem.longitude };
+      state.photoData.locationDescription = locationPrediction.fullText;
       state.photoData.timestamp = new Date().toUTCString();
-      state.photoData.location = location;
+      state.photoData.location = locationItem;
       this.setState(state);
       /* console.log(location); */
     })
@@ -77,7 +77,7 @@ class PhotoOptions extends Component<Props> {
   }
 
   locationItemPressed = (location) => {
-    this.lookupLocationByID(location.placeID);
+    this.lookupLocationByID(location);
   }
 
   renderSearchResults = () => {

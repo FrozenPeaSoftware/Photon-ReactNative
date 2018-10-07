@@ -13,6 +13,7 @@ import Firebase from "./src/components/Firebase";
 
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
+import Map from "./src/components/Map/Map";
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
@@ -63,6 +64,10 @@ const AppRouter = createStackNavigator(
     },
     Profile: {
       screen: ProfileScreen,
+      header: null
+    },
+    Map: {
+      screen: Map,
       header: null
     }
   },

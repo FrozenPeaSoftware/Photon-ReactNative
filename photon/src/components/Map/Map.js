@@ -6,15 +6,18 @@ import { Marker } from 'react-native-maps';
 
 class Map extends Component {
   render() {
+    console.log('path: ' + global.photoPath[global.photoPath.length - 1]);
+    const latitude = this.props.navigation.getParam("latitude");
+    const longitude = this.props.navigation.getParam("longitude");
     return <View style={styles.container}>
-      <MapView style={styles.map} initialRegion = {{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421}}>
-        <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324}}>
+      <MapView style={styles.map} mapType="hybrid" initialRegion = {{
+        latitude: latitude,
+        longitude: longitude,
+        latitudeDelta: 0.009,
+        longitudeDelta: 0.009}}>
+        <Marker coordinate={{ latitude: latitude, longitude: longitude}}>
           <Icon name='md-pin' color='#4ca7ed' size={80}/>
-          <Image style={[styles.photo]} source={{uri: global.photoPath[0]}}></Image>
+          {/* <Image style={[styles.photo]} onLoad={() => this.forceUpdate()} source={{uri: global.photoPath[global.photoPath.length - 1]}}></Image> */}
         </Marker>
       </MapView>
     </View>
@@ -33,9 +36,9 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   photo: {
-    width: 40,
-    height: 40,
-    borderRadius: 50
+    width: 60,
+    height: 60,
+    zIndex: 1000
   }
  });
 

@@ -18,7 +18,7 @@ const TabNavigator = createBottomTabNavigator({
         })
     },
     Search: {
-        screen: PhotoOptions,
+        screen: Map,
         navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (
                 <Icon name='md-search' color={tintColor} size={25}/>
