@@ -68,11 +68,11 @@ class LoginScreen extends Component {
           >
             <Text style={styles.registerText}>Don't have an account yet?</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => this.props.navigation.navigate("Tabs")}
           >
             <Text style={styles.registerText}>Test button for you, Leyton</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     );
